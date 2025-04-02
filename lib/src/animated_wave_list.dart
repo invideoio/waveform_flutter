@@ -16,11 +16,13 @@ class AnimatedWaveList extends StatefulWidget {
     required this.stream,
     this.barBuilder,
     super.key,
+    this.dragEnabled = true,
   });
 
   final Stream<Amplitude> stream; // The stream of amplitude values.
   final Widget Function(Animation<double> animation, Amplitude amplitude)?
       barBuilder;
+  final bool dragEnabled;
 
   @override
   State<AnimatedWaveList> createState() => _AnimatedWaveListState();
@@ -86,5 +88,8 @@ class _AnimatedWaveListState extends State<AnimatedWaveList> {
         key: _listKey,
         initialItemCount: _list.length,
         itemBuilder: _buildItem,
+        physics: widget.dragEnabled
+            ? null
+            : const NeverScrollableScrollPhysics(),
       );
 }
